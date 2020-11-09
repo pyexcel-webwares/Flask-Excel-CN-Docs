@@ -195,8 +195,9 @@ python 版本，请继续使用 0.5.x 。
 配置
 ------------------------
 
+在你的应用里，你必须加上以下的初始化代码：
 
-In your application, you must import it before using it::
+.. code-block:: python 
 
     import flask_excel as excel
 
@@ -204,37 +205,38 @@ In your application, you must import it before using it::
     excel.init_excel(app) # required since version 0.0.7
 
 
-Quick start
+快速上手
 --------------------------------------------------------------------------------
 
-A minimal application may look like this:
+一个最简单的应用可以写这么短:
 
 .. literalinclude:: ../../examples/tiny_example.py
+   :linenos:
 
-The tiny application exposes four urls:
+这个小应用有四个链接
 
-#. one for file upload
-#. three urls for file download.
+#. 一个用来展示 Excel 文件上传。
+#. 三个用来展示 Excle 文件下载。
 
-The first url presents a simple file upload html and responds
-back in json with the content of the uploaded file. Here is an
-`example file <https://github.com/pyexcel/Flask-Excel/blob/master/examples/example_for_upload.csv>`_
-for testing but you can upload any other excel file. The file upload handler
-uses `request.get_array` to parse the uploaded file and gets an array back.
-The parameter **file** is coded in the html form::
+第一个链接可以让你上传一个 Excel 文件，然后你会得到用 json 表示的文件内容。
+你可以用这个准备好的
+`样板文件 <https://github.com/pyexcel/Flask-Excel/blob/master/examples/example_for_upload.csv>`_
+。当然你也可以用你自己的文件。在处理文件上传的代码里，我们用的是
+:meth:`~flask_excel.ExcelRequest.get_array`
+。**get_array** 的参数 **file** 其实已经写在了网页里了::
 
     <input ... name=file>
 
 .. warning::
-   If 'field_name' was not specified, for example `request.get_array('file')`
-   in upload_file() function, your browser would display "Bad Request: The
+   如果 **field_name** 没有用到的话，你的浏览器会给出"Bad Request: The
    browser (or proxy) sent a request that this server could not understand."
+   什么意思呢？正确的用法是：request.get_file(field_name='file') 。错误的用法是：
+   request.get_array('file') 。
+   
 
-The rest of the links simply throw back a csv file whenever a http request is made to
-http://localhost:50000/download/. :meth:`~excel.make_response_from_array` takes a
-list of lists and a file type as parameters and sets up the mime type of the
-http response. If you would like to give 'tsvz' a go, please change "csv" to
-"tsvz".
+其余的链接呢，只要你用浏览器访问，它们会简单的回复一个 cvs 文件，比如：
+http://localhost:50000/download/。在这里，我们展示了
+:meth:`~excel.make_response_from_array` 如果把一个二维数组转换成你需要的 Excel 文件
 
 
 
@@ -250,17 +252,15 @@ http response. If you would like to give 'tsvz' a go, please change "csv" to
     pip install pyexcel-xlsx
     pip install pyexcel-ods
 
-Data import and export
+数据库：数据输入和输出
 --------------------------------------------------------------------------------
 
-Continue with the previous example, the data import and export will be explained.
-You can copy the following code in their own appearing sequence and paste them
-after the place holder::
+继续前面的例子，我们来看看如果和数据库连起来。你可以把下面的代码拷贝到它们对应的地方，我们来
+一起做。
 
     # insert database related code here
 
-Alternatively, you can find the complete example on
-`github <https://github.com/pyexcel/Flask-Excel/blob/master/examples/database_example.py>`_
+或者呢，你可以看这个已经完成了的`数据库例子 <https://github.com/pyexcel/Flask-Excel/blob/master/examples/database_example.py>`_
 
 Now let's add the following imports first::
 

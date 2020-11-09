@@ -12,6 +12,8 @@ targets:
   - output: cn-docs
     template_type: copy
     template: "docs/**"
+  - examples/tiny_example.py: examples/tiny_example.py
+  - examples/database_example.py: examples/database_example.py
   - delete!: cn-docs/source/index.rst
   - "cn-docs/source/index.rst": "cn-index.rst.jj2"
 
