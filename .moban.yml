@@ -1,0 +1,18 @@
+configuration:
+  configuration_dir: "git://github.com/pyexcel/pyexcel-mobans!/config"
+  template_dir:
+  - "git://github.com/moremoban/pypi-mobans.git?submodule=true&branch=dev!/statics"
+  - "git://github.com/moremoban/pypi-mobans.git?branch=dev&submodule=true!/templates"
+  - "git://github.com/pyexcel/pyexcel-mobans.git!/templates"
+  - "git://github.com/pyexcel/pyexcel-mobans.git!/statics"
+  - "git://github.com/pyexcel-webwares/Flask-Excel.git?branch=master!/"
+  - ".moban.d"
+  configuration: "git://github.com/pyexcel-webwares/Flask-Excel.git?branch=master!/flask_excel.yaml"
+targets:
+  - output: cn-docs
+    template_type: copy
+    template: "docs/**"
+  - delete!: cn-docs/source/index.rst
+  - "cn-docs/source/index.rst": "cn-index.rst.jj2"
+
+
