@@ -14,9 +14,9 @@
 :文档生成日期: |today|
 以下是一段典型的开发人员和用户的对话::
 
-        用户: "我上传了一个 excel 文件但是你的网页说文件格式不支持。"
+     用户: "我上传了一个 excel 文件但是你的网页说文件格式不支持。"
   开发人员: "哪你上传的是 xlsx 格式还是 csv 格式？"
-        用户: "嗯，我不清楚。总之，我用的微软的 Excel 存的文件。哪一定是 excel 文件啦！"
+     用户: "嗯，我不清楚。总之，我用的微软的 Excel 存的文件。哪一定是 excel 文件啦！"
   开发人员: "嗨，事情是这样：从第一天开始，你就没有告诉我要支持所有的 excel 格式。"
            "要么，将就一下。要么，把项目推迟 N 天。"
 
@@ -338,23 +338,23 @@ Then visit http://localhost:5000/custom_export to download the data
 示例应用展示了数列，并不代表只有数列，其他的数据结构也是支持的。 以下是所有的数据结构列表:
 
 
-=========================== ======================================================== ==================================================
-data structure              from file to data structures                             from data structures to response
-=========================== ======================================================== ==================================================
-dict                        :meth:`~flask_excel.ExcelRequest.get_dict`               :meth:`~flask_excel.make_response_from_dict`
-records                     :meth:`~flask_excel.ExcelRequest.get_records`            :meth:`~flask_excel.make_response_from_records`
-a list of lists             :meth:`~flask_excel.ExcelRequest.get_array`              :meth:`~flask_excel.make_response_from_array`
-dict of a list of lists     :meth:`~flask_excel.ExcelRequest.get_book_dict`          :meth:`~flask_excel.make_response_from_book_dict`
-:class:`pyexcel.Sheet`      :meth:`~flask_excel.ExcelRequest.get_sheet`              :meth:`~flask_excel.make_response`
-:class:`pyexcel.Book`       :meth:`~flask_excel.ExcelRequest.get_book`               :meth:`~flask_excel.make_response`
-database table              :meth:`~flask_excel.ExcelRequest.save_to_database`       :meth:`~flask_excel.make_response_from_a_table`
-                            :meth:`~flask_excel.ExcelRequest.isave_to_database`
-a list of database tables   :meth:`~flask_excel.ExcelRequest.save_book_to_database`  :meth:`~flask_excel.make_response_from_tables`
-                            :meth:`~flask_excel.ExcelRequest.isave_book_to_database`
-a database query sets                                                                :meth:`~flask_excel.make_response_from_query_sets`
-a generator for records     :meth:`~django_excel.ExcelMixin.iget_records`
-a generator of lists        :meth:`~django_excel.ExcelMixin.iget_array`
-=========================== ======================================================== ==================================================
+============================================== ======================================================== ==================================================
+数据结构                                        从文件到数据结构                                           从数据结构到 http 回复
+============================================== ======================================================== ==================================================
+字典(dict)                                     :meth:`~flask_excel.ExcelRequest.get_dict`               :meth:`~flask_excel.make_response_from_dict`
+字典列表（records)                             :meth:`~flask_excel.ExcelRequest.get_records`            :meth:`~flask_excel.make_response_from_records`
+二维数组（a list of lists）                    :meth:`~flask_excel.ExcelRequest.get_array`              :meth:`~flask_excel.make_response_from_array`
+以二维数组为值的字典(dict of a list of lists)  :meth:`~flask_excel.ExcelRequest.get_book_dict`          :meth:`~flask_excel.make_response_from_book_dict`
+:class:`pyexcel.Sheet`                         :meth:`~flask_excel.ExcelRequest.get_sheet`              :meth:`~flask_excel.make_response`
+:class:`pyexcel.Book`                          :meth:`~flask_excel.ExcelRequest.get_book`               :meth:`~flask_excel.make_response`
+数据库表(database table)                       :meth:`~flask_excel.ExcelRequest.save_to_database`       :meth:`~flask_excel.make_response_from_a_table`
+                                               :meth:`~flask_excel.ExcelRequest.isave_to_database`
+一组数据库表(a list of database tables)        :meth:`~flask_excel.ExcelRequest.save_book_to_database`  :meth:`~flask_excel.make_response_from_tables`
+                                               :meth:`~flask_excel.ExcelRequest.isave_book_to_database`
+数据库查询（a database query sets）                                                                     :meth:`~flask_excel.make_response_from_query_sets`
+字典产生器（a generator for records）          :meth:`~django_excel.ExcelMixin.iget_records`
+数组产生器（a generator of lists）             :meth:`~django_excel.ExcelMixin.iget_array`
+============================================== ======================================================== ==================================================
 
 需要更多信息的话，可以参照 :ref:`pyexcel documentation<pyexcel:a-list-of-data-structures>`
 
@@ -372,7 +372,7 @@ a generator of lists        :meth:`~django_excel.ExcelMixin.iget_array`
 函数参考
 ---------------
 
-**Flask-Excel** attaches **pyexcel** functions to **Request** class.
+**Flask-Excel** 把 **pyexcel** 函数安插到了 **Request** 类里。
 
 .. module:: flask_excel.ExcelRequest
 
@@ -381,14 +381,12 @@ ExcelRequest
 
 .. method:: get_sheet(field_name=None, sheet_name=None, **keywords)
 
-   :param field_name: the file field name in the html form for file upload
-   :param sheet_name: For an excel book, there could be multiple sheets. If it is left
-                      unspecified, the sheet at index 0 is loaded. For 'csv', 'tsv' file,
-                      *sheet_name* should be None anyway.
-   :param keywords: additional keywords to :meth:`pyexcel.get_sheet`
-   :returns: A sheet object
+   :param sheet_name: 对于多个表单的 excel 文件，它可以用来指定从哪一个表单取数据。缺省值是第一个表单。
+                      要是 csv , tsv 文件的话，可以忽略 *sheet_name* 。
+   :param keywords: 其他 :meth:`pyexcel.get_sheet` 的参数
+   :returns: :class:`pyexcel.Sheet`
 
-   The following html form, the *field_name* should be "file"::
+   在下面的网页里， *field_name* 必须是 "file"::
 
        <!doctype html>
        <title>Upload an excel file</title>
@@ -399,70 +397,69 @@ ExcelRequest
 
 .. method:: get_array(field_name=None, sheet_name=None, **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param sheet_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param keywords: additional keywords to pyexcel library
-   :returns: a two dimensional array, a list of lists
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param keywords: 其他 :meth:`pyexcel.get_array` 的参数
+   :returns: 二维数组（a list of lists）
 
 .. method:: get_dict(field_name=None, sheet_name=None, name_columns_by_row=0, **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param sheet_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param name_columns_by_row: uses the first row of the sheet to be column headers by default.
-   :param keywords: additional keywords to pyexcel library
-   :returns: a dictionary of the file content
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param name_columns_by_row: 栏目名在哪一样。缺省的话，默认栏目在第一行。
+   :param keywords: 其他 :meth:`pyexcel.get_dict` 的参数
+   :returns: 字典
+
 
 .. method:: get_records(field_name=None, sheet_name=None, name_columns_by_row=0, **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param sheet_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param name_columns_by_row: uses the first row of the sheet to be record field names by default.
-   :param keywords: additional keywords to pyexcel library
-   :returns: a list of dictionary of the file content
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param name_columns_by_row: 栏目名在哪一样。缺省的话，默认栏目在第一行。
+   :param keywords: 其他 :meth:`pyexcel.get_records` 的参数
+   :returns: 字典列表 (a list of records)
 
 .. method:: get_book(field_name=None, **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param keywords: additional keywords to pyexcel library
-   :returns: a two dimensional array, a list of lists
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param keywords: 其他 :meth:`pyexcel.get_book` 的参数
+   :returns: :class:`pyexcel.Book`
 
 .. method:: get_book_dict(field_name=None, **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param keywords: additional keywords to pyexcel library
-   :returns: a two dimensional array, a list of lists
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param keywords: 其他 :meth:`pyexcel.get_book_dict` 的参数
+   :returns: 以二维数组为值的字典(dict of a list of lists) 
 
 .. method:: save_to_database(field_name=None, session=None, table=None, initializer=None, mapdict=None **keywords)
 
-   :param field_name: same as :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param session: a SQLAlchemy session
-   :param table: a database table
-   :param initializer: a custom table initialization function if you have one
-   :param mapdict: the explicit table column names if your excel data do not have the exact column names
-   :param keywords: additional keywords to :meth:`pyexcel.Sheet.save_to_database`
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param session: SQLAlchemy 的 session
+   :param table: 数据库的一个表
+   :param initializer: 自定义的初始化函数
+   :param mapdict: 表栏目适配字典
+   :param keywords: 参照 :meth:`pyexcel.Sheet.save_to_database`
 
 .. method:: isave_to_database(field_name=None, session=None, table=None, initializer=None, mapdict=None **keywords)
 
-   similar to :meth:`:meth:`~flask_excel.ExcelRequest.isave_to_database`. But it requires
-   less memory.
+   和 :meth:`:meth:`~flask_excel.ExcelRequest.isave_to_database` 一样但用更少的内存。
 
-   This requires column names must be at the first row.
+   同时要求上传文件的第一行是栏目名。
 
 .. method:: save_book_to_database(field_name=None, session=None, tables=None, initializers=None, mapdicts=None, **keywords)
 
-   :param field_name: same as  :meth:`~flask_excel.ExcelRequest.get_sheet`
-   :param session: a SQLAlchemy session
-   :param tables: a list of database tables
-   :param initializers: a list of model initialization functions.
-   :param mapdicts: a list of explicit table column names if your excel data sheets do not have the exact column names
-   :param keywords: additional keywords to :meth:`pyexcel.Book.save_to_database`
+   :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
+   :param session: SQLAlchemy 的 session
+   :param tables: 一组数据库表
+   :param initializers: 一组自定义的初始化函数
+   :param mapdicts: 一组表栏目适配字典。请注意，数据库表，初始化函数和栏目适配字典需要一一对应。
+   :param keywords: 参照 :meth:`pyexcel.Book.save_to_database`
 
 .. method:: isave_book_to_database(field_name=None, session=None, tables=None, initializers=None, mapdicts=None, **keywords)
 
-   similar to :meth:`:meth:`~flask_excel.ExcelRequest.isave_book_to_database`. But it requires
-   less memory.
+   和 :meth:`:meth:`~flask_excel.ExcelRequest.isave_book_to_database`. 一样但需要更少的内存
 
-   This requires column names must be at the first row in each sheets
+   同时要求上传文件的所有表的第一行是栏目名。
 
 Response methods
 **********************
