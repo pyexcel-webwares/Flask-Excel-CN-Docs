@@ -2,8 +2,9 @@
 
 {%block setup %}
 
+在你的应用里，你必须加上以下的初始化代码：
 
-In your application, you must import it before using it::
+.. code-block:: python 
 
     import flask_excel as excel
 
@@ -13,19 +14,19 @@ In your application, you must import it before using it::
 {%endblock%}
 
 {%block quick_start%}
-Quick start
+快速上手
 --------------------------------------------------------------------------------
 
-A minimal application may look like this:
+一个最简单的应用可以写这么短:
 
 .. literalinclude:: ../../examples/tiny_example.py
 
-The tiny application exposes four urls:
+这个小应用有四个链接
 
-#. one for file upload
-#. three urls for file download.
+#. 一个用来展示 Excel 文件上传。
+#. 三个用来展示 Excle 文件下载。
 
-The first url presents a simple file upload html and responds
+第一个链接可以让你上传一个 Excel 文件并用 json 回复。responds
 back in json with the content of the uploaded file. Here is an
 `example file <https://github.com/pyexcel/Flask-Excel/blob/master/examples/example_for_upload.csv>`_
 for testing but you can upload any other excel file. The file upload handler
