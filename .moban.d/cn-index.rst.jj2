@@ -70,32 +70,28 @@ http://localhost:50000/download/。在这里，我们展示了
 
 或者呢，你可以看这个已经完成了的`数据库例子 <https://github.com/pyexcel/Flask-Excel/blob/master/examples/database_example.py>`_
 
-Now let's add the following imports first::
+现在我们先加入这些引入::
 
     from flask_sqlalchemy import SQLAlchemy # sql operations
 
-And please make sure that you have pyexcel-xls and pyexcel-handsontable installed::
+在你的命令行，运行下面的命令，装上 pyexcel-xls 和 pyexcel-handsontable::
 
 	pip install pyexcel-xls, pyexcel-handsontable
 
-Now configure the database connection. Sqllite will be used and **tmp.db** will
-be used and can be found in your current working directory::
+接着我们配置数据库链接。在这里我们用 Sqllite 。你在当前目录可以找到 **tmp.db** ::
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tmp.db'
     db = SQLAlchemy(app)
 
-And paste some models from Flask-SQLAlchemy's documentation:
+再拷贝数据库声明:
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 38-69
 
-Now let us create the tables in the database:
+然后创建数据库模型:
 
 .. literalinclude:: ../../examples/database_example.py
-   :lines: 71-73
-
-
-Write up the view functions for data import:
+   :lines: :
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 75-100
