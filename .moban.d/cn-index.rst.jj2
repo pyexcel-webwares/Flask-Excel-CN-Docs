@@ -109,15 +109,16 @@ http://localhost:50000/download/。在这里，我们展示了
 .. literalinclude:: ../../examples/database_example.py
    :lines: 103-106
 
-Then run the example again. Visit http://localhost:5000/import and upload
+再运行一下，打开 Visit http://localhost:5000/import 
+然后上传这个文件
 `sample-data.xls <https://github.com/pyexcel/Flask-Excel/blob/master/sample-data.xls>`_.
 
-And it responds with
+你会得到下面的网页：
 
 .. image:: _static/handson-view.png
 
-This result is rendered via `pyexcel-handsontable <https://github.com/pyexcel/pyexcel-handsontable>`_.
-All you needed is to put 'handsontable.html' as file type:
+以上的页面是由 `pyexcel-handsontable <https://github.com/pyexcel/pyexcel-handsontable>`_ 生成的。
+你需要做的就是用 'handsontable.html' 文件扩展名:
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 115-119
