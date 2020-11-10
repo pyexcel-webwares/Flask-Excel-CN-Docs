@@ -91,17 +91,20 @@ http://localhost:50000/download/。在这里，我们展示了
 然后创建数据库模型:
 
 .. literalinclude:: ../../examples/database_example.py
-   :lines: :
+   :lines: 71-73
+
+再写一个数据输入的函数：
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 75-100
 
-In the code, `category_init_func` and `post_init_func` are custom initialization
-functions for Category and Post respectively. In the situation where you want to
-skip certain rows, None should should be returned and flask_excel will ignore the row.
+解释一下，`category_init_func` 和 `post_init_func` 是给 Category 
+和 Post 的自定义模型初始化函数。flask_excel 会把输入的 Excel 文件分批
+一行一行的把数据给初始化函数。一般初始化函数返回数据库模型的实例。初始化函数的返回值有个特殊用途：
+如果返回值是 None，哪所在的 Excel 文件的一行数据就会被丢掉。
 
 
-Write up the view function for data export:
+我们再来写数据库输出的代码： 
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 103-106
