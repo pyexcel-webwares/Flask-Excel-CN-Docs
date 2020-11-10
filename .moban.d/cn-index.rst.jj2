@@ -156,13 +156,13 @@ pass a query sets and an array of selected column names to
 一组数据库表(a list of database tables)        :meth:`~flask_excel.ExcelRequest.save_book_to_database`  :meth:`~flask_excel.make_response_from_tables`
                                                :meth:`~flask_excel.ExcelRequest.isave_book_to_database`
 数据库查询（a database query sets）                                                                     :meth:`~flask_excel.make_response_from_query_sets`
-字典产生器（a generator for records）          :meth:`~django_excel.ExcelMixin.iget_records`
-数组产生器（a generator of lists）             :meth:`~django_excel.ExcelMixin.iget_array`
+字典产生器（a generator for records）          :meth:`~flask_excel.ExcelRequest.iget_records`
+数组产生器（a generator of lists）             :meth:`~flask_excel.ExcelRequest.iget_array`
 ============================================== ======================================================== ==================================================
 {%endblock%}
 
 {%block api_doc %}
-**Flask-Excel** 把 **pyexcel** 函数安插到了 **Request** 类里。
+**Flask-Excel** 把 **pyexcel** 函数安插到了 :class:`flask.Request` 类里。
 
 .. module:: flask_excel.ExcelRequest
 
@@ -173,7 +173,7 @@ ExcelRequest
 
    :param sheet_name: 对于多个表单的 excel 文件，它可以用来指定从哪一个表单取数据。缺省值是第一个表单。
                       要是 csv , tsv 文件的话，可以忽略 *sheet_name* 。
-   :param keywords: 其他 :meth:`pyexcel.get_sheet` 的参数
+   :param keywords: 其他 :func:`pyexcel.get_sheet` 的参数
    :returns: :class:`pyexcel.Sheet`
 
    在下面的网页里， *field_name* 必须是 "file"::
@@ -189,7 +189,7 @@ ExcelRequest
 
    :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
    :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
-   :param keywords: 其他 :meth:`pyexcel.get_array` 的参数
+   :param keywords: 其他 :func:`pyexcel.get_array` 的参数
    :returns: 二维数组（a list of lists）
 
 .. method:: get_dict(field_name=None, sheet_name=None, name_columns_by_row=0, **keywords)
@@ -197,7 +197,7 @@ ExcelRequest
    :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
    :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
    :param name_columns_by_row: 栏目名在哪一样。缺省的话，默认栏目在第一行。
-   :param keywords: 其他 :meth:`pyexcel.get_dict` 的参数
+   :param keywords: 其他 :func:`pyexcel.get_dict` 的参数
    :returns: 字典
 
 
@@ -206,7 +206,7 @@ ExcelRequest
    :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
    :param sheet_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
    :param name_columns_by_row: 栏目名在哪一样。缺省的话，默认栏目在第一行。
-   :param keywords: 其他 :meth:`pyexcel.get_records` 的参数
+   :param keywords: 其他 :func:`pyexcel.get_records` 的参数
    :returns: 字典列表 (a list of records)
 
 .. method:: get_book(field_name=None, **keywords)
@@ -218,7 +218,7 @@ ExcelRequest
 .. method:: get_book_dict(field_name=None, **keywords)
 
    :param field_name: 和前面 :meth:`~flask_excel.ExcelRequest.get_sheet` 一样。
-   :param keywords: 其他 :meth:`pyexcel.get_book_dict` 的参数
+   :param keywords: 其他 :func:`pyexcel.get_book_dict` 的参数
    :returns: 以二维数组为值的字典(dict of a list of lists) 
 
 .. method:: save_to_database(field_name=None, session=None, table=None, initializer=None, mapdict=None **keywords)
@@ -232,7 +232,7 @@ ExcelRequest
 
 .. method:: isave_to_database(field_name=None, session=None, table=None, initializer=None, mapdict=None **keywords)
 
-   和 :meth:`:meth:`~flask_excel.ExcelRequest.isave_to_database` 一样但用更少的内存。
+   和 :meth:`:meth:`~flask_excel.ExcelRequest.save_to_database` 一样但用更少的内存。
 
    同时要求上传文件的第一行是栏目名。
 
@@ -247,7 +247,7 @@ ExcelRequest
 
 .. method:: isave_book_to_database(field_name=None, session=None, tables=None, initializers=None, mapdicts=None, **keywords)
 
-   和 :meth:`:meth:`~flask_excel.ExcelRequest.isave_book_to_database`. 一样但需要更少的内存
+   和 :meth:`:meth:`~flask_excel.ExcelRequest.save_book_to_database`. 一样但需要更少的内存
 
    同时要求上传文件的所有表的第一行是栏目名。
 
