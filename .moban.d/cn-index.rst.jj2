@@ -125,18 +125,19 @@ All you needed is to put 'handsontable.html' as file type:
 
 Then visit http://localhost:5000/export to download the data back.
 
-Export filtered query sets
+输出过滤过的查询
 --------------------------------------------------------------------------------
 
-Previous example shows you how to dump one or more tables over http protocol.
-Hereby, let's look at how to turn a query sets into an excel sheet. You can
+前面的例子介绍了如果把一个或多个数据的表转换成 Excel 文件给用户下载。
+现在这个例子讲讲如何过滤一个表然后给用户下载。
 pass a query sets and an array of selected column names to
-:meth:`~flask_excel.make_response_from_query_sets` and generate an excel sheet from it:
+:meth:`~flask_excel.make_response_from_query_sets` 允许你给一个查询和选中的栏目名字
+并给出一个单页的 Excel 文件下载：
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 108-113
 
-Then visit http://localhost:5000/custom_export to download the data
+你可以打开这个链接看看：Then visit http://localhost:5000/custom_export 
 {%endblock%}
 
 {%block api_table%}

@@ -262,42 +262,41 @@ http://localhost:50000/download/。在这里，我们展示了
 
 或者呢，你可以看这个已经完成了的`数据库例子 <https://github.com/pyexcel/Flask-Excel/blob/master/examples/database_example.py>`_
 
-Now let's add the following imports first::
+现在我们先加入这些引入::
 
     from flask_sqlalchemy import SQLAlchemy # sql operations
 
-And please make sure that you have pyexcel-xls and pyexcel-handsontable installed::
+在你的命令行，运行下面的命令，装上 pyexcel-xls 和 pyexcel-handsontable::
 
 	pip install pyexcel-xls, pyexcel-handsontable
 
-Now configure the database connection. Sqllite will be used and **tmp.db** will
-be used and can be found in your current working directory::
+接着我们配置数据库链接。在这里我们用 Sqllite 。你在当前目录可以找到 **tmp.db** ::
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tmp.db'
     db = SQLAlchemy(app)
 
-And paste some models from Flask-SQLAlchemy's documentation:
+再拷贝数据库声明:
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 38-69
 
-Now let us create the tables in the database:
+然后创建数据库模型:
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 71-73
 
-
-Write up the view functions for data import:
+再写一个数据输入的函数：
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 75-100
 
-In the code, `category_init_func` and `post_init_func` are custom initialization
-functions for Category and Post respectively. In the situation where you want to
-skip certain rows, None should should be returned and flask_excel will ignore the row.
+解释一下，`category_init_func` 和 `post_init_func` 是给 Category 
+和 Post 的自定义模型初始化函数。flask_excel 会把输入的 Excel 文件分批
+一行一行的把数据给初始化函数。一般初始化函数返回数据库模型的实例。初始化函数的返回值有个特殊用途：
+如果返回值是 None，哪所在的 Excel 文件的一行数据就会被丢掉。
 
 
-Write up the view function for data export:
+我们再来写数据库输出的代码： 
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 103-106
@@ -318,18 +317,19 @@ All you needed is to put 'handsontable.html' as file type:
 
 Then visit http://localhost:5000/export to download the data back.
 
-Export filtered query sets
+输出过滤过的查询
 --------------------------------------------------------------------------------
 
-Previous example shows you how to dump one or more tables over http protocol.
-Hereby, let's look at how to turn a query sets into an excel sheet. You can
+前面的例子介绍了如果把一个或多个数据的表转换成 Excel 文件给用户下载。
+现在这个例子讲讲如何过滤一个表然后给用户下载。
 pass a query sets and an array of selected column names to
-:meth:`~flask_excel.make_response_from_query_sets` and generate an excel sheet from it:
+:meth:`~flask_excel.make_response_from_query_sets` 允许你给一个查询和选中的栏目名字
+并给出一个单页的 Excel 文件下载：
 
 .. literalinclude:: ../../examples/database_example.py
    :lines: 108-113
 
-Then visit http://localhost:5000/custom_export to download the data
+你可以打开这个链接看看：Then visit http://localhost:5000/custom_export 
 .. _data-types-and-its-conversion-funcs:
 
 所有支持的数据结构
