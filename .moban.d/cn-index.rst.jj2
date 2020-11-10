@@ -232,7 +232,7 @@ ExcelRequest
 
 .. method:: isave_to_database(field_name=None, session=None, table=None, initializer=None, mapdict=None **keywords)
 
-   和 :meth:`:meth:`~flask_excel.ExcelRequest.save_to_database` 一样但用更少的内存。
+   和 :meth:`~flask_excel.ExcelRequest.save_to_database` 一样但用更少的内存。
 
    同时要求上传文件的第一行是栏目名。
 
@@ -247,7 +247,7 @@ ExcelRequest
 
 .. method:: isave_book_to_database(field_name=None, session=None, tables=None, initializers=None, mapdicts=None, **keywords)
 
-   和 :meth:`:meth:`~flask_excel.ExcelRequest.save_book_to_database`. 一样但需要更少的内存
+   和 :meth:`~flask_excel.ExcelRequest.save_book_to_database`. 一样但需要更少的内存
 
    同时要求上传文件的所有表的第一行是栏目名。
 
