@@ -469,8 +469,8 @@ Response methods
 
 .. method:: make_response(pyexcel_instance, file_type, status=200, file_name=None)
 
-   :param pyexcel_instance: :class:`pyexcel.Sheet` or :class:`pyexcel.Book`
-   :param file_type: one of the following strings:
+   :param pyexcel_instance: :class:`pyexcel.Sheet` 或 :class:`pyexcel.Book`
+   :param file_type: 任何一个支持的文件类型，以下是可用的但不局限于它们的集合
 
                      * 'csv'
                      * 'tsv'
@@ -481,68 +481,67 @@ Response methods
                      * 'xlsm'
                      * 'ods'
 
-   :param status: unless a different status is to be returned.
-   :param file_name: provide a custom file name for the response, excluding the file extension
+   :param status: 允许开发人员发自定义的 http status
+   :param file_name: 自定义的下载文件名称。注意，文件扩展名是不能改变的。
 
 .. method:: make_response_from_array(array, file_type, status=200, file_name=None)
 
-   :param array: a list of lists
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param array: 二维数组（a list of lists）
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 .. method:: make_response_from_dict(dict, file_type, status=200, file_name=None)
 
-   :param dict: a dictionary of lists
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param dict: 字典(dict) 
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 .. method:: make_response_from_records(records, file_type, status=200, file_name=None)
 
-   :param records: a list of dictionaries
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param records: 字典列表（records)
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 .. method:: make_response_from_book_dict(book_dict, file_type, status=200, file_name=None)
 
-   :param book_dict: a dictionary of two dimensional arrays
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param book_dict: 以二维数组为值的字典(a dict of a list of lists)
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 .. method:: make_response_from_a_table(session, table, file_type, status=200, file_name=None)
 
-   Produce a single sheet Excel book of *file_type*
+   产生一个单页的 Excel 文件。里面的数据来自指定的数据库表。
 
-   :param session: SQLAlchemy session
-   :param table: a SQLAlchemy table
+   :param session: SQLAlchemy 的 session
+   :param table: 数据库表
    :param file_type: same as :meth:`~flask_excel.make_response`
    :param status: same as :meth:`~flask_excel.make_response`
    :param file_name: same as :meth:`~flask_excel.make_response`
 
 .. method:: make_response_from_query_sets(query_sets, column_names, file_type, status=200, file_name=None)
 
-   Produce a single sheet Excel book of *file_type* from your custom database queries
+   产生一个单页的 Excel 文件。里面的数据来自查询结果。
 
-   :param query_sets: a query set
-   :param column_names: a nominated column names. It could not be None, otherwise no data is returned.
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param query_sets: 查询结果
+   :param column_names: 指定的栏目名字。如果是 None 的话，不会有数据返回哦。
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 .. method:: make_response_from_tables(session, tables, file_type, status=200, file_name=None)
 
-   Produce a multiple sheet Excel book of *file_type*. It becomes the same
-   as :meth:`~flask_excel.make_response_from_a_table` if you pass *tables*
-   with an array that has a single table
+   产生一个多页的 Excel 文件。如果 *tables* 里只有一个数据库表的话，它的功能就和
+   :meth:`~flask_excel.make_response_from_a_table` 一样了。
 
-   :param session: SQLAlchemy session
-   :param tables: SQLAlchemy tables
-   :param file_type: same as :meth:`~flask_excel.make_response`
-   :param status: same as :meth:`~flask_excel.make_response`
-   :param file_name: same as :meth:`~flask_excel.make_response`
+   :param session: SQLAlchemy 的 session
+   :param tables: 一组数据库表
+   :param file_type: 和 :meth:`~flask_excel.make_response` 一样
+   :param status: 和 :meth:`~flask_excel.make_response` 一样
+   :param file_name: 和 :meth:`~flask_excel.make_response` 一样
 
 
 .. include:: ../../CHANGELOG.rst
